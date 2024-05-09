@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - nginx_data:/usr/share/nginx/html
+    networks:
+      custom_network:
+        ipv4_address: 172.19.0.2
+
+networks:
+  custom_network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16
+
+volumes:
+  nginx_data:
